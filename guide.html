@@ -1,0 +1,2228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- Merged CSS --- */
+        :root {
+            --background-color: #ffffff;
+            --text-color: #000000;
+            --text-muted-color: #6c757d;
+            --primary-color: #007BFF;
+            --secondary-color: #0056b3;
+            --header-bg: rgba(255, 255, 255, 0.9);
+            --card-bg: #f9f9f9;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --accent: #007bff;
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+            --bulb-off-color: #d3d3d3; 
+            --bulb-on-color: #ffc600;
+            --bulb-glow-color: #ffc600;
+        }
+
+        [data-theme="light"] {
+            --background-color: #ffffff;
+            --text-color: #121212;
+            --text-muted-color: #6c757d;
+            --primary-color: #0066cc;
+            --secondary-color: #1E90FF;
+            --header-bg: rgba(255, 255, 255, 0.9);
+            --card-bg: #f8f9fa;
+            --border-color: #dee2e6;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --bulb-off-color: #e0e0e0;
+            --bulb-on-color: #ffc600;
+            --bulb-glow-color: #ffc600;
+        }
+
+        [data-theme="dark"] {
+            --background-color: #121212;
+            --text-color: #ffffff;
+            --text-muted-color: #adb5bd;
+            --primary-color: #1E90FF;
+            --secondary-color: #63a4ff;
+            --header-bg: rgba(18, 18, 18, 0.9);
+            --card-bg: #1e1e1e;
+            --border-color: #343a40;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --bulb-off-color: #444;
+            --bulb-on-color: #ffc600;
+            --bulb-glow-color: #ffc600;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* --- Typography --- */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+            color: var(--text-color);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        h2 span, .section-title span {
+            color: var(--primary-color);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-muted-color);
+        }
+
+        /* --- Layout Container --- */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 0;
+        }
+
+        /* --- Header & Navigation --- */
+        .site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background: var(--header-bg);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .site-header.scrolled {
+            background: var(--header-bg);
+            border-color: transparent;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo img {
+            height: 60px;
+            animation: rotate-ltr 6s linear infinite;
+        }
+
+        @keyframes rotate-ltr {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        .main-nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .main-nav a {
+            position: relative;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .main-nav a:hover,
+        .main-nav a:focus {
+            color: var(--primary-color);
+        }
+
+        .main-nav a::after {
+            content: attr(data-description);
+            position: absolute;
+            left: 50%;
+            bottom: -2.2em;
+            transform: translateX(-50%);
+            background: var(--primary-color);
+            color: #fff;
+            padding: 0.3em 0.7em;
+            border-radius: 4px;
+            font-size: 0.9em;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            z-index: 10;
+        }
+
+        .main-nav a:hover::after {
+            opacity: 1;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 1.2rem;
+            right: 1.2rem;
+            cursor: pointer;
+            z-index: 1000;
+            background: var(--background-color);
+            color: var(--primary-color);
+            padding: 0.5rem 0.7rem;
+            border-radius: 50%;
+            border: none;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        /* --- Hero Section --- */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 2rem;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 5%;
+            min-height: 100vh;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-family: var(--font-secondary);
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-title .fade-in-out {
+            animation: fadeInOut 4s ease-in-out infinite;
+            color: var(--primary-color);
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .hero-content h2 {
+            font-family: var(--font-secondary);
+            font-size: 2rem;
+            font-weight: 400;
+            margin-top: 1rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-bio {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted-color);
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: none;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary-color);
+            background: transparent;
+            color: var(--primary-color);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        .profile-image {
+            text-align: center;
+            position: relative;
+        }
+
+        .profile-image img {
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            max-width: 90%;
+            height: auto;
+        }
+
+        .shape {
+            position: absolute;
+            z-index: -1;
+        }
+
+        /* === Core Section Styles === */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 50px;
+            color: var(--text-color);
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title span {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 2rem 1rem;
+        }
+
+        /* === About Section === */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content {
+            padding-right: 2rem;
+        }
+
+        .about-text h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            text-align: left;
+        }
+
+        .about-text h2 span {
+            color: var(--primary-color);
+        }
+
+        .bio {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-muted-color);
+        }
+
+        /* Merged Story Section */
+        .about-story-box, .highlight-box {
+            padding: 2.5rem;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            margin-bottom: 2.5rem;
+        }
+
+        .about-story-box:hover, .highlight-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        [data-theme="dark"] .about-story-box:hover, 
+        [data-theme="dark"] .highlight-box:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+
+        .about-story {
+            text-align: center;
+        }
+
+        .about-story h2 {
+            padding: 8px 16px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .about-story p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Merged Core Values Grid */
+        .core-values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .core-value {
+            background-color: var(--card-bg);
+            padding: 1.8rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .core-value:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow);
+        }
+
+        .core-value i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .core-value:hover i {
+            transform: scale(1.2);
+        }
+
+        .core-value h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .core-value p {
+            font-size: 1rem;
+            color: var(--text-muted-color);
+        }
+
+        /* === Mission & Stats Section === */
+        .mission-column {
+            flex: 1 1 55%;
+            min-width: 320px;
+        }
+
+        .stats-column {
+            flex: 1 1 40%;
+            min-width: 280px;
+        }
+
+        .content-block {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .content-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .content-block h3 {
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .content-block h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+
+        .content-block p {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        /* === Projects Section === */
+        .projects-section {
+            padding: 4rem 0;
+        }
+
+        .projects-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            width: 100%;
+            max-width: 350px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .project-description {
+            font-size: 0.95rem;
+            color: var(--text-muted-color);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .project-link-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .project-link-secondary {
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .project-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Category Section */
+        .category-section {
+            margin-bottom: 4rem;
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+        }
+
+        .category-title i {
+            margin-right: 1rem;
+            color: var(--primary-color);
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+        }
+
+        .skill-category {
+            flex: 1 1 30%;
+            min-width: 280px;
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-category h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .skill-name {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .skill-level {
+            background-color: var(--border-color);
+            height: 6px;
+            border-radius: 4px;
+            margin-top: 0.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-level-bar {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        /* Skills Note with Lightbulb */
+        .skills-note {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem auto;
+            max-width: 800px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            transform: scale(0.95);
+            animation: noteAppear 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes noteAppear {
+            0% { transform: scale(0.95); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .skills-note:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .bulb {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            animation: bulbFloat 3s ease-in-out infinite;
+            text-align: center;
+            width: 100%;
+        }
+
+        @keyframes bulbFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .bulb i {
+            font-size: 3.5rem;
+            color: var(--bulb-off-color);
+            transition: color 0.5s, text-shadow 0.5s;
+        }
+
+        .skills-note:hover .bulb i {
+            color: var(--bulb-on-color);
+            text-shadow: 0 0 10px var(--bulb-glow-color), 0 0 20px var(--bulb-glow-color);
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 0 0 10px var(--bulb-glow-color), 0 0 20px var(--bulb-glow-color);
+                opacity: 1;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+                opacity: 0.8;
+            }
+        }
+
+        .skills-note p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-muted-color);
+        }
+
+        .skills-note strong {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* ===== Services Section ===== */
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .service-icon {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .service-icon i {
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-icon i {
+            transform: scale(1.2);
+        }
+
+        .service-content {
+            padding: 1.8rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-name {
+            font-size: 1.4rem;
+            margin: 1rem 0 0.8rem;
+            color: var(--text-color);
+        }
+
+        .service-desc {
+            color: var(--text-muted-color);
+            margin-bottom: 1.2rem;
+            flex-grow: 1;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .service-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.7rem;
+            font-size: 0.95rem;
+        }
+
+        .service-features i {
+            color: rgb(16, 109, 185);
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+                /* === Contact Section (Second Design Incorporated) === */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: var(--font-secondary);
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+        
+        button[type="submit"] {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        button[type="submit"]:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background: var(--card-bg);
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .footer-links h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--background-color);
+            color: var(--primary-color);
+            transition: all 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+                margin: 0 auto;
+            }
+            
+            .hero-content h2 {
+                text-align: center;
+            }
+            
+            .cta-group {
+                justify-content: center;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .about-content {
+                padding-right: 0;
+            }
+
+            .skill-category {
+                flex: 1 1 45%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .site-header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .main-nav {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .cta-group {
+                flex-direction: column;
+            }
+            
+            .content-wrapper {
+                flex-direction: column;
+            }
+
+            .skill-category {
+                flex: 1 1 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .services-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="logo">
+            <img src="Images/WhatsApp_Image_2025-04-01_at_12.10.46-removebg-preview.png" alt="Jordan Weyama Logo">
+        </div>
+        <nav class="main-nav">
+            <a href="#" data-description="">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <button class="theme-toggle">🌓</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-grid">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Hello, I'm <span class="fade-in-out"> <br>Jordan Weyama</span>
+            </h1>
+            <h2 class="hero-title">
+                 And I am a <span class="fade-in-out"> <br>A Creative</span></h2>
+            <div class="cta-group">
+                <button class="btn btn-primary" onclick="window.location.href='#portfolio'">
+                    <i class="fas fa-paper-plane"></i> View My Work
+                <div class="cta-group">
+                <button class="btn btn-outline" onclick="window.location.href='#contact'">
+                    <i class="fas fa-paper-plane"></i> Contact Me
+                </button>
+
+            </div>
+        </div>
+        <div class="profile-image">
+            <img src="Images/DSC_2837-removebg-preview-removebg-preview1.png" alt="Jordan Weyama Profile Photo" class="profile-photo">
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="container">
+        <div class="about-grid">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About <span>Me</span></h2>
+                    <p class="bio">
+                        I'm a multidisciplinary designer and developer passionate about creating digital 
+                        experiences that are both beautiful and functional. My approach combines technical 
+                        expertise with creative problem-solving to deliver solutions that exceed expectations.
+                    </p>
+                    <p class="bio">
+                        With a background in both visual design and front-end development, I bridge the gap 
+                        between aesthetics and technology. I believe in creating work that not only looks 
+                        great but also delivers measurable results for clients.
+                    </p>
+                </div>
+            </div>
+            <div class="about-story-box">
+                <div class="about-story">
+                    <h2>My <span>Story</span></h2>
+                    <p>
+                        What started as casual design work for local teams and businesses turned into a full-time 
+                        pursuit of digital creation. Over time, I've expanded from basic graphics to full brand 
+                        packages, social media content, websites, and storytelling through photography and film. 
+                        Every project is a chance to solve real problems with clear, simple tools.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <section id="values" class="container">
+            <h2 class="section-title">My <span>Core Values</span></h2>
+            
+            <!-- Core Values Grid -->
+            <div class="core-values-grid">
+                <div class="core-value">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Simplicity</h3>
+                    <p>I keep things clear and easy to understand, both in design and communication.</p>
+                </div>
+                <div class="core-value">
+                    <i class="fas fa-palette"></i>
+                    <h3>Creativity</h3>
+                    <p>I bring fresh ideas to every project and make sure each design or story feels unique.</p>
+                </div>
+                <div class="core-value">
+                    <i class="fas fa-award"></i>
+                    <h3>Quality</h3>
+                    <p>I focus on doing things right—from websites to videos—because details matter.</p>
+                </div>
+                <div class="core-value">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Honesty</h3>
+                    <p>I say what I mean, and I mean what I say. I believe in clear and honest work.</p>
+                </div>
+                <div class="core-value">
+                    <i class="fas fa-clock"></i>
+                    <h3>Reliability</h3>
+                    <p>You can count on me to deliver what I promise, on time and with care.</p>
+                </div>
+                <div class="core-value">
+                    <i class="fas fa-link"></i>
+                    <h3>Connection</h3>
+                    <p>Whether it's a photo, a video, or a full website—I aim to make people feel something real.</p>
+                </div>
+                <div class="core-value">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Growth</h3>
+                    <p>I always look for ways to learn, improve, and help others grow through creative work.</p>
+                </div>
+                <div class="core-value">
+                    <i class="fas fa-sync-alt"></i>
+                    <h3>Adaptability</h3>
+                    <p>I adjust quickly to change, keeping my work relevant, responsive, and grounded in the moment.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission/Vision/Goal Section -->
+        <div class="highlight-box">
+            <h2 class="section-title">My <span>Mission Vision & Goal</span></h2>
+            <div class="content-wrapper">
+                <!-- Left Column: Mission, Vision & Goals -->
+                <div class="mission-column">
+                    <div class="content-block">
+                        <h2 class="section-title">My <span>Mission</span></h3>
+                        <p>
+                            To create honest, functional, and visually consistent digital experiences that help 
+                            individuals and businesses communicate clearly, grow their presence, and stand out—online 
+                            and offline—through design, storytelling, and strategy.
+                        </p>
+                    </div>
+                    <div class="content-block">
+                        <h2 class="section-title">My <span>Vision</span></h3>
+                        <p>
+                            To be recognized for delivering honest, impactful, and visually striking digital work 
+                            that supports real-world results—especially in areas where creativity meets purpose, 
+                            like sports, environmental awareness, and local businesses.
+                        </p>
+                    </div>
+                    <div class="content-block">
+                        <h2 class="section-title">My <span>Goal</span></h3>
+                        <p>
+                            Build a strong, versatile brand that offers full-spectrum digital services—including 
+                            web development, graphic design, content production, and digital marketing—while 
+                            maintaining quality, authenticity, and relevance in every project.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills&Services Section -->
+    <section id="skills" class="container">
+        <h2 class="section-title">My <span>Skills&Services</span></h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3><i class="fas fa-paint-brush"></i> Design</h3>
+                <ul class="skill-list">
+                    <li>
+                        <div class="skill-name">
+                            <i class="fas fa-check-circle"></i>
+                            <span>UI/UX Design</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-level-bar" style="width: 95%"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="skill-name">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Brand Identity</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-level-bar" style="width: 90%"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="skill-name">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Illustration</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-level-bar" style="width: 85%"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="skill-category">
+                <h3><i class="fas fa-code"></i> Development</h3>
+                <ul class="skill-list">
+                    <li>
+                        <div class="skill-name">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Front-End</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-level-bar" style="width: 92%"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="skill-name">
+                            <i class="fas fa-check-circle"></i>
+                            <span>WordPress</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-level-bar" style="width: 88%"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="skill-name">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Responsive Design</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-level-bar" style="width: 96%"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="skill-category">
+                <h3><i class="fas fa-video"></i> Multimedia</h3>
+                <ul class="skill-list">
+                    <li>
+                        <div class="skill-name">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Video Production</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-level-bar" style="width: 85%"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="skill-name">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Motion Graphics</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-level-bar" style="width: 80%"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="skill-name">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Photography</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-level-bar" style="width: 90%"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="container projects-section">
+        <h2 class="section-title">My <span>Projects</span></h2>
+        
+        <!-- Web Development Projects -->
+        <div class="category-section">
+            <h3 class="category-title">
+                <i class="fas fa-code"></i> Web Development
+            </h3>
+            <div class="projects-container">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Web Development Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">HTML/CSS</span>
+                            <span class="project-tag">JavaScript</span>
+                            <span class="project-tag">Responsive</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> Visit Site
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Web Development Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">React</span>
+                            <span class="project-tag">API</span>
+                            <span class="project-tag">UI/UX</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> Visit Site
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Web Development Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">WordPress</span>
+                            <span class="project-tag">PHP</span>
+                            <span class="project-tag">E-commerce</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> Visit Site
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Visual Communication Projects -->
+        <div class="category-section">
+            <h3 class="category-title">
+                <i class="fas fa-paint-brush"></i> Visual Communication
+            </h3>
+            <div class="projects-container">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Visual Communication Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Branding</span>
+                            <span class="project-tag">Illustration</span>
+                            <span class="project-tag">Print</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> View Project
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Visual Communication Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">UI/UX</span>
+                            <span class="project-tag">Prototyping</span>
+                            <span class="project-tag">Wireframing</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> View Project
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Visual Communication Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Social Media</span>
+                            <span class="project-tag">Marketing</span>
+                            <span class="project-tag">Graphics</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> View Project
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Photography Projects -->
+        <div class="category-section">
+            <h3 class="category-title">
+                <i class="fas fa-camera"></i> Photography
+            </h3>
+            <div class="projects-container">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Photography Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Portrait</span>
+                            <span class="project-tag">Lighting</span>
+                            <span class="project-tag">Editing</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> View Gallery
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Photography Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Landscape</span>
+                            <span class="project-tag">Nature</span>
+                            <span class="project-tag">Travel</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> View Gallery
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Photography Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Event</span>
+                            <span class="project-tag">Sports</span>
+                            <span class="project-tag">Action</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> View Gallery
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Videography Projects -->
+        <div class="category-section">
+            <h3 class="category-title">
+                <i class="fas fa-video"></i> Videography
+            </h3>
+            <div class="projects-container">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Videography Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Short Film</span>
+                            <span class="project-tag">Editing</span>
+                            <span class="project-tag">Cinematography</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> Watch Video
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Videography Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Commercial</span>
+                            <span class="project-tag">Advertising</span>
+                            <span class="project-tag">Branding</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> Watch Video
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Videography Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Documentary</span>
+                            <span class="project-tag">Storytelling</span>
+                            <span class="project-tag">Interview</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> Watch Video
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Animation Projects -->
+        <div class="category-section">
+    <h3 class="category-title">
+        <i class="fas fa-film"></i> Animation
+    </h3>
+    <div class="projects-container">
+        <div class="project-card animation-card">
+            <div class="project-image">
+                <img src="images/animation1.jpg" alt="Animation Project 1">
+                <div class="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <div class="project-content">
+                <h3 class="project-title">Motion Graphics Reel</h3>
+                <p class="project-description">
+                    A collection of my best motion graphics work, showcasing transitions, kinetic typography, and visual effects.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">After Effects</span>
+                    <span class="project-tag">Cinema 4D</span>
+                    <span class="project-tag">2D/3D</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link project-link-primary">
+                        <i class="fas fa-play-circle"></i> Watch Demo
+                    </a>
+                    <a href="#" class="project-link project-link-secondary">
+                        <i class="fas fa-info-circle"></i> Details
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="project-card animation-card">
+            <div class="project-image">
+                <img src="images/animation2.jpg" alt="Animation Project 2">
+                <div class="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <div class="project-content">
+                <h3 class="project-title">Character Animation</h3>
+                <p class="project-description">
+                    Expressive character animations with lip syncing and personality-driven movements.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">Blender</span>
+                    <span class="project-tag">Rigging</span>
+                    <span class="project-tag">Keyframe</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link project-link-primary">
+                        <i class="fas fa-play-circle"></i> Watch Demo
+                    </a>
+                    <a href="#" class="project-link project-link-secondary">
+                        <i class="fas fa-info-circle"></i> Details
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="project-card animation-card">
+            <div class="project-image">
+                <img src="images/animation3.jpg" alt="Animation Project 3">
+                <div class="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <div class="project-content">
+                <h3 class="project-title">Explainer Video</h3>
+                <p class="project-description">
+                    Animated explainer video for a tech startup, combining 2D assets with 3D elements.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">Storyboard</span>
+                    <span class="project-tag">Illustration</span>
+                    <span class="project-tag">Sound Design</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link project-link-primary">
+                        <i class="fas fa-play-circle"></i> Watch Demo
+                    </a>
+                    <a href="#" class="project-link project-link-secondary">
+                        <i class="fas fa-info-circle"></i> Details
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!-- Content Creation Projects -->
+        <div class="category-section">
+            <h3 class="category-title">
+                <i class="fas fa-pen-fancy"></i> Content Creation
+            </h3>
+            <div class="projects-container">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Content Creation Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Blogging</span>
+                            <span class="project-tag">Writing</span>
+                            <span class="project-tag">SEO</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> Read Content
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Content Creation Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Social Media</span>
+                            <span class="project-tag">Strategy</span>
+                            <span class="project-tag">Engagement</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> View Campaign
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Content Creation Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Copywriting</span>
+                            <span class="project-tag">Brand Voice</span>
+                            <span class="project-tag">Messaging</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> View Samples
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Marketing Projects -->
+        <div class="category-section">
+            <h3 class="category-title">
+                <i class="fas fa-bullhorn"></i> Marketing
+            </h3>
+            <div class="projects-container">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Marketing Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Digital</span>
+                            <span class="project-tag">Campaign</span>
+                            <span class="project-tag">Analytics</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> View Case Study
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Marketing Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Email</span>
+                            <span class="project-tag">Automation</span>
+                            <span class="project-tag">Conversion</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> View Campaign
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/_Projects" alt="Marketing Project">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project Title</h3>
+                        <p class="project-description">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus omnis sed eaque consequatur, fugiat fugit, vero fuga placeat, delectus doloribus voluptas nam?
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">SEO</span>
+                            <span class="project-tag">PPC</span>
+                            <span class="project-tag">ROI</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-external-link-alt"></i> View Results
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="container">
+        <h2 class="section-title">Services I <span>Provide</span></h2>
+        
+        <!-- Animated Lightbulb Note -->
+        <div class="skills-note text-center">
+            <span class="bulb" id="bulb"><i class="fas fa-lightbulb"></i></span>
+            <p>I combine these skill sets to create <strong>technology solutions with measurable social impact</strong> in the Kenyan context.</p>
+        </div>
+        
+        <div class="services-container">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-name">Web Development</h3>
+                    <p class="service-desc">
+                        Custom websites and web applications built with modern technologies for optimal performance and user experience.
+                    </p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Responsive Design</li>
+                        <li><i class="fas fa-check"></i> SEO Optimized</li>
+                        <li><i class="fas fa-check"></i> Performance Focused</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-name">UI/UX Design</h3>
+                    <p class="service-desc">
+                        Beautiful and intuitive interfaces designed to enhance user engagement and satisfaction.
+                    </p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> User Research</li>
+                        <li><i class="fas fa-check"></i> Wireframing</li>
+                        <li><i class="fas fa-check"></i> Prototyping</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Visual Communication Service Card -->
+<div class="service-card">
+    <div class="service-icon" style="background: linear-gradient(135deg, #007BFF,);">
+        <i class="fas fa-eye"></i>
+    </div>
+    <div class="service-content">
+        <h3 class="service-name">Visual Communication</h3>
+        <p class="service-desc">
+            Compelling visual storytelling through graphic design, branding, and multimedia content that communicates your message effectively.
+        </p>
+        <ul class="service-features">
+            <li><i class="fas fa-check"></i> Brand Identity Design</li>
+            <li><i class="fas fa-check"></i> Infographics & Data Visualization</li>
+            <li><i class="fas fa-check"></i> Print & Digital Media Design</li>
+        </ul>
+    </div>
+</div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-name">Photography</h3>
+                    <p class="service-desc">
+                        Professional photography services for portraits, events, products, and commercial needs.
+                    </p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> High Quality Images</li>
+                        <li><i class="fas fa-check"></i> Professional Editing</li>
+                        <li><i class="fas fa-check"></i> Creative Direction</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-name">Videography</h3>
+                    <p class="service-desc">
+                        Video production services from concept to final edit for commercials, events, and more.
+                    </p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> 4K Quality</li>
+                        <li><i class="fas fa-check"></i> Professional Editing</li>
+                        <li><i class="fas fa-check"></i> Motion Graphics</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Animation Service Card -->
+<div class="service-card">
+    <div class="service-icon" style="background: linear-gradient(135deg, #007BFF);">
+        <i class="fas fa-film"></i>
+    </div>
+    <div class="service-content">
+        <h3 class="service-name">Animation</h3>
+        <p class="service-desc">
+            Engaging motion graphics and animations that bring stories to life and captivate your audience.
+        </p>
+        <ul class="service-features">
+            <li><i class="fas fa-check"></i> Motion Graphics</li>
+            <li><i class="fas fa-check"></i> 2D/3D Animation</li>
+            <li><i class="fas fa-check"></i> Explainer Videos</li>
+        </ul>
+    </div>
+</div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-name">Digital Marketing</h3>
+                    <p class="service-desc">
+                        Comprehensive digital marketing strategies to grow your online presence and reach.
+                    </p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Social Media</li>
+                        <li><i class="fas fa-check"></i> Content Strategy</li>
+                        <li><i class="fas fa-check"></i> Analytics</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-pen-nib"></i>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-name">Content Creation</h3>
+                    <p class="service-desc">
+                        Engaging content tailored to your brand voice and audience across all platforms.
+                    </p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Copywriting</li>
+                        <li><i class="fas fa-check"></i> Blogging</li>
+                        <li><i class="fas fa-check"></i> Social Media</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+            <!-- Contact Form Section -->
+    <section class="section fade-in" id="contact-form">
+        <div class="container">
+            <h2 class="section-title">Get In <span>Touch</span></h2>
+            <div class="contact-form">
+                <form id="contactForm" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
+                    <div id="form-message" class="form-message"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <i class="fas fa-sparkle"></i> <h2>Jordan <span>Weyama</span></h3>
+                    </div>
+                    <p>Creating digital experiences that connect brands with their audience through thoughtful design and development.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                        <a href="#"><i class="fab fa-behance"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right" onclick="window.location.href='#home'"></i> Home</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right" onclick="window.location.href='#about'"></i>></i> About Me</a></li>
+                        <li><a href="#skills"><i class="fas fa-chevron-right" onclick="window.location.href='#skills'"></i> Skills</a></li>
+                        <li><a href="#portfolio"><i class="fas fa-chevron-right" onclick="window.location.href='#portfolio'"></i> Portfolio</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right" onclick="window.location.href='#contact'"></i> Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Web Development</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Visual Communication</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Brand Identity</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Video Production</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Animation</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Digital Strategy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-envelope"></i> jordanweyama48@gmail.com</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +254 (718) 697-184</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Nairobi Kenya</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Jordan Weyama. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.querySelector('.theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.setAttribute('data-theme',
+                document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+            );
+            updateSkillTexts();
+        });
+
+        function updateSkillTexts() {
+            const theme = document.documentElement.getAttribute('data-theme');
+            document.querySelectorAll('.skill-title').forEach(el => {
+                el.textContent = theme === 'dark' ? el.getAttribute('data-dark') : el.getAttribute('data-light');
+            });
+            document.querySelectorAll('.skill-text').forEach(el => {
+                el.textContent = theme === 'dark' ? el.getAttribute('data-dark') : el.getAttribute('data-light');
+            });
+        }
+
+        // Initialize skill texts on page load
+        updateSkillTexts();
+
+        // Lightbulb always animates (no hover needed)
+        const lightbulb = document.querySelector('.bulb i');
+        if (lightbulb) {
+            lightbulb.classList.add('bulb-on');
+        }
+        // EmailJS integration for form submission
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize EmailJS (you need to create an account at https://www.emailjs.com/)
+            emailjs.init("YOUR_EMAILJS_USER_ID"); // Replace with your actual EmailJS user ID
+            
+            const contactForm = document.getElementById('contactForm');
+            const formMessage = document.getElementById('form-message');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                submitBtn.disabled = true;
+                
+                // Send email using EmailJS
+                emailjs.sendForm('YOUR_EMAILJS_SERVICE_ID', 'YOUR_EMAILJS_TEMPLATE_ID', this)
+                    .then(function() {
+                        // Show success message
+                        formMessage.textContent = 'Message sent successfully!';
+                        formMessage.className = 'form-message success';
+                        
+                        // Reset form
+                        contactForm.reset();
+                    }, function(error) {
+                        // Show error message
+                        formMessage.textContent = 'Failed to send message. Please try again later.';
+                        formMessage.className = 'form-message error';
+                        console.error('Failed to send message:', error);
+                    })
+                    .finally(function() {
+                        // Reset button state
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.disabled = false;
+                        
+                        // Hide message after 5 seconds
+                        setTimeout(function() {
+                            formMessage.style.display = 'none';
+                        }, 5000);
+                    });
+            });
+        });
+    </script>
+    <style>
+        /* Add this to your CSS */
+        .bulb-on {
+            color: var(--bulb-on-color) !important;
+            text-shadow: 0 0 10px var(--bulb-glow-color), 0 0 20px var(--bulb-glow-color);
+            animation: flicker 1.5s infinite alternate;
+        }
+    </style>
+</body>
+</html>
