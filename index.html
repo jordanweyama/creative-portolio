@@ -895,6 +895,52 @@
             transform: translateY(-3px);
         }
 
+            .thank-you-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 30px;
+        background: var(--card-bg);
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        text-align: center;
+    }
+    
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 20px;
+        transition: background-color 0.3s;
+    }
+    
+    .btn:hover {
+        background: var(--secondary-color);
+    }
+    
+    .form-message {
+        display: none;
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    
+    .form-message.success {
+        display: block;
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    
+    .form-message.error {
+        display: block;
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
         footer {
             background: var(--card-bg);
             padding: 3rem 0;
@@ -2064,14 +2110,15 @@
     <!-- Footer -->
     <footer id="contact">
            
-       <!-- Contact Form Section -->
+<!-- Contact Form Section -->
 <section class="section fade-in" id="contact-form">
     <div class="contact-container">
         <h2 class="section-title">Get In <span>Touch</span></h2>
         <div class="contact-form">
-            <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
-                <input type="hidden" name="access_key" value="660d4928-7e53-4e1d-8b42-54f315576d28">         
-                <input type="hidden" name="subject" value="New Contact Form Submission">                
+            <form id="contactForm" method="POST">
+                <input type="hidden" name="access_key" value="660d4928-7e53-4e1d-8b42-54f315576d28">
+                <input type="hidden" name="subject" value="New Contact Form Submission">
+                                
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
@@ -2090,6 +2137,15 @@
         </div>
     </div>
 </section>
+
+<!-- Thank You Container (initially hidden) -->
+<div id="thank-you-container" class="thank-you-container" style="display: none;">
+    <h1>Thank You! 🙏</h1>
+    <p>Your message has been sent successfully. 👍</p>
+    <p>I will get back to you as soon as possible. 😊</p>
+    <a href="#" id="go-back-btn" class="btn">Go Back to Website</a>
+</div>
+
 
         <div class="container">
             <div class="footer-content">
@@ -2147,77 +2203,107 @@
     </footer>
 
     <script>
-        // Theme Toggle
-        const themeToggle = document.querySelector('.theme-toggle');
-        themeToggle.addEventListener('click', () => {
-            document.documentElement.setAttribute('data-theme',
-                document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
-            );
-            updateSkillTexts();
-        });
-
-        function updateSkillTexts() {
-            const theme = document.documentElement.getAttribute('data-theme');
-            document.querySelectorAll('.skill-title').forEach(el => {
-                el.textContent = theme === 'dark' ? el.getAttribute('data-dark') : el.getAttribute('data-light');
-            });
-            document.querySelectorAll('.skill-text').forEach(el => {
-                el.textContent = theme === 'dark' ? el.getAttribute('data-dark') : el.getAttribute('data-light');
-            });
-        }
-
-        // Initialize skill texts on page load
+    // Theme Toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    themeToggle.addEventListener('click', () => {
+        document.documentElement.setAttribute('data-theme',
+            document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+        );
         updateSkillTexts();
+    });
 
-        // Lightbulb always animates (no hover needed)
-        const lightbulb = document.querySelector('.bulb i');
-        if (lightbulb) {
-            lightbulb.classList.add('bulb-on');
-        }
-        // EmailJS integration for form submission
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize EmailJS (you need to create an account at https://www.emailjs.com/)
-            emailjs.init("YOUR_EMAILJS_USER_ID"); // Replace with your actual EmailJS user ID
-            
-            const contactForm = document.getElementById('contactForm');
-            const formMessage = document.getElementById('form-message');
-            
+    function updateSkillTexts() {
+        const theme = document.documentElement.getAttribute('data-theme');
+        document.querySelectorAll('.skill-title').forEach(el => {
+            el.textContent = theme === 'dark' ? el.getAttribute('data-dark') : el.getAttribute('data-light');
+        });
+        document.querySelectorAll('.skill-text').forEach(el => {
+            el.textContent = theme === 'dark' ? el.getAttribute('data-dark') : el.getAttribute('data-light');
+        });
+    }
+
+    // Initialize skill texts on page load
+    updateSkillTexts();
+
+    // Lightbulb always animates (no hover needed)
+    const lightbulb = document.querySelector('.bulb i');
+    if (lightbulb) {
+        lightbulb.classList.add('bulb-on');
+    }
+
+    // Form submission handling
+    document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('form-message');
+        const thankYouContainer = document.getElementById('thank-you-container');
+        const goBackBtn = document.getElementById('go-back-btn');
+        
+        if (contactForm) {
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                // Show loading state
                 const submitBtn = this.querySelector('button[type="submit"]');
                 const originalBtnText = submitBtn.innerHTML;
+                
+                // Show loading state
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
                 submitBtn.disabled = true;
                 
-                // Send email using EmailJS
-                emailjs.sendForm('YOUR_EMAILJS_SERVICE_ID', 'YOUR_EMAILJS_TEMPLATE_ID', this)
-                    .then(function() {
-                        // Show success message
-                        formMessage.textContent = 'Message sent successfully!';
-                        formMessage.className = 'form-message success';
+                // Submit to Web3Forms
+                const formData = new FormData(this);
+                
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show thank you container and hide form
+                        thankYouContainer.style.display = 'block';
+                        document.querySelector('.contact-form').style.display = 'none';
                         
                         // Reset form
                         contactForm.reset();
-                    }, function(error) {
-                        // Show error message
-                        formMessage.textContent = 'Failed to send message. Please try again later.';
-                        formMessage.className = 'form-message error';
-                        console.error('Failed to send message:', error);
-                    })
-                    .finally(function() {
-                        // Reset button state
-                        submitBtn.innerHTML = originalBtnText;
-                        submitBtn.disabled = false;
-                        
-                        // Hide message after 5 seconds
-                        setTimeout(function() {
-                            formMessage.style.display = 'none';
-                        }, 5000);
-                    });
+                    } else {
+                        throw new Error(data.message || 'Form submission failed');
+                    }
+                })
+                .catch(error => {
+                    // Show error message
+                    formMessage.textContent = error.message || 'Failed to send message. Please try again later.';
+                    formMessage.className = 'form-message error';
+                    formMessage.style.display = 'block';
+                    console.error('Error:', error);
+                })
+                .finally(() => {
+                    // Reset button state
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                    
+                    // Hide message after 5 seconds
+                    setTimeout(() => {
+                        formMessage.style.display = 'none';
+                    }, 5000);
+                });
             });
-        });
+        }
+        
+        // Go back button functionality
+        if (goBackBtn) {
+            goBackBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Show form and hide thank you message
+                thankYouContainer.style.display = 'none';
+                document.querySelector('.contact-form').style.display = 'block';
+                
+                // Force page refresh
+                location.reload(true);
+            });
+        }
+    });       
+
     </script>
     <style>
         /* Add this to your CSS */
