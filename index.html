@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creative Portfolio</title>
+    <title>Jordan Weyama - Creative Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -861,88 +861,167 @@
             font-size: 0.8rem;
         }
 
-        /* Footer */
-                /* === Contact Section (Second Design Incorporated) === */
+        /* Form Styles */
         .contact-form {
             max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        input, textarea {
             width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-family: var(--font-secondary);
+            margin: 2rem auto;
+            padding: 3rem;
             background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
             color: var(--text-color);
         }
-        
+
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--background-color);
+            color: var(--text-color);
+            font-family: var(--font-primary);
+            transition: var(--transition);
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
         button[type="submit"] {
             background: var(--primary-color);
             color: white;
-            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 5px;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
+            width: 100%;
+            margin-top: 1rem;
         }
-        
+
         button[type="submit"]:hover {
             background: var(--secondary-color);
             transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
 
-            .thank-you-container {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 30px;
-        background: var(--card-bg);
-        border-radius: 10px;
-        box-shadow: var(--shadow);
-        text-align: center;
-    }
-    
-    .btn {
-        display: inline-block;
-        padding: 10px 20px;
-        background: var(--primary-color);
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        margin-top: 20px;
-        transition: background-color 0.3s;
-    }
-    
-    .btn:hover {
-        background: var(--secondary-color);
-    }
-    
-    .form-message {
-        display: none;
-        margin-top: 20px;
-        padding: 10px;
-        border-radius: 5px;
-    }
-    
-    .form-message.success {
-        display: block;
-        background-color: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-    }
-    
-    .form-message.error {
-        display: block;
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-    }
+        /* Form Message */
+        .form-message {
+            display: none;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
 
+        .form-message.error {
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff4d4d;
+            border: 1px solid #ff4d4d;
+        }
+
+        .form-message.success {
+            background: rgba(0, 128, 0, 0.1);
+            color: #00cc66;
+            border: 1px solid #00cc66;
+        }
+
+        /* Thank You Container */
+        .thank-you-container {
+            max-width: 600px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 3rem;
+            text-align: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            z-index: 10;
+            display: none;
+        }
+
+        .thank-you-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .thank-you-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            color: var(--text-color);
+        }
+
+        .thank-you-container p {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            color: var(--text-muted-color);
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        /* Footer */
         footer {
             background: var(--card-bg);
             padding: 3rem 0;
@@ -1114,6 +1193,10 @@
 
             .skill-category {
                 flex: 1 1 100%;
+            }
+            
+            .contact-form, .thank-you-container {
+                padding: 2rem 1.5rem;
             }
         }
 
@@ -1754,95 +1837,95 @@
 
         <!-- Animation Projects -->
         <div class="category-section">
-    <h3 class="category-title">
-        <i class="fas fa-film"></i> Animation
-    </h3>
-    <div class="projects-container">
-        <div class="project-card animation-card">
-            <div class="project-image">
-                <img src="images/animation1.jpg" alt="Animation Project 1">
-                <div class="play-button">
-                    <i class="fas fa-play"></i>
+            <h3 class="category-title">
+                <i class="fas fa-film"></i> Animation
+            </h3>
+            <div class="projects-container">
+                <div class="project-card animation-card">
+                    <div class="project-image">
+                        <img src="images/animation1.jpg" alt="Animation Project 1">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Motion Graphics Reel</h3>
+                        <p class="project-description">
+                            A collection of my best motion graphics work, showcasing transitions, kinetic typography, and visual effects.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">After Effects</span>
+                            <span class="project-tag">Cinema 4D</span>
+                            <span class="project-tag">2D/3D</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-play-circle"></i> Watch Demo
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="project-content">
-                <h3 class="project-title">Motion Graphics Reel</h3>
-                <p class="project-description">
-                    A collection of my best motion graphics work, showcasing transitions, kinetic typography, and visual effects.
-                </p>
-                <div class="project-tags">
-                    <span class="project-tag">After Effects</span>
-                    <span class="project-tag">Cinema 4D</span>
-                    <span class="project-tag">2D/3D</span>
+                
+                <div class="project-card animation-card">
+                    <div class="project-image">
+                        <img src="images/animation2.jpg" alt="Animation Project 2">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Character Animation</h3>
+                        <p class="project-description">
+                            Expressive character animations with lip syncing and personality-driven movements.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Blender</span>
+                            <span class="project-tag">Rigging</span>
+                            <span class="project-tag">Keyframe</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-play-circle"></i> Watch Demo
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="project-links">
-                    <a href="#" class="project-link project-link-primary">
-                        <i class="fas fa-play-circle"></i> Watch Demo
-                    </a>
-                    <a href="#" class="project-link project-link-secondary">
-                        <i class="fas fa-info-circle"></i> Details
-                    </a>
+                
+                <div class="project-card animation-card">
+                    <div class="project-image">
+                        <img src="images/animation3.jpg" alt="Animation Project 3">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Explainer Video</h3>
+                        <p class="project-description">
+                            Animated explainer video for a tech startup, combining 2D assets with 3D elements.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Storyboard</span>
+                            <span class="project-tag">Illustration</span>
+                            <span class="project-tag">Sound Design</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link project-link-primary">
+                                <i class="fas fa-play-circle"></i> Watch Demo
+                            </a>
+                            <a href="#" class="project-link project-link-secondary">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <div class="project-card animation-card">
-            <div class="project-image">
-                <img src="images/animation2.jpg" alt="Animation Project 2">
-                <div class="play-button">
-                    <i class="fas fa-play"></i>
-                </div>
-            </div>
-            <div class="project-content">
-                <h3 class="project-title">Character Animation</h3>
-                <p class="project-description">
-                    Expressive character animations with lip syncing and personality-driven movements.
-                </p>
-                <div class="project-tags">
-                    <span class="project-tag">Blender</span>
-                    <span class="project-tag">Rigging</span>
-                    <span class="project-tag">Keyframe</span>
-                </div>
-                <div class="project-links">
-                    <a href="#" class="project-link project-link-primary">
-                        <i class="fas fa-play-circle"></i> Watch Demo
-                    </a>
-                    <a href="#" class="project-link project-link-secondary">
-                        <i class="fas fa-info-circle"></i> Details
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="project-card animation-card">
-            <div class="project-image">
-                <img src="images/animation3.jpg" alt="Animation Project 3">
-                <div class="play-button">
-                    <i class="fas fa-play"></i>
-                </div>
-            </div>
-            <div class="project-content">
-                <h3 class="project-title">Explainer Video</h3>
-                <p class="project-description">
-                    Animated explainer video for a tech startup, combining 2D assets with 3D elements.
-                </p>
-                <div class="project-tags">
-                    <span class="project-tag">Storyboard</span>
-                    <span class="project-tag">Illustration</span>
-                    <span class="project-tag">Sound Design</span>
-                </div>
-                <div class="project-links">
-                    <a href="#" class="project-link project-link-primary">
-                        <i class="fas fa-play-circle"></i> Watch Demo
-                    </a>
-                    <a href="#" class="project-link project-link-secondary">
-                        <i class="fas fa-info-circle"></i> Details
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
         <!-- Content Creation Projects -->
         <div class="category-section">
@@ -2173,7 +2256,9 @@
             <form id="contactForm" method="POST">
                 <input type="hidden" name="access_key" value="660d4928-7e53-4e1d-8b42-54f315576d28">
                 <input type="hidden" name="subject" value="New Contact Form Submission">
-                                
+                
+                <div id="form-message" class="form-message"></div>
+                
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
@@ -2187,7 +2272,6 @@
                     <textarea id="message" name="message" rows="5" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
-                <div id="form-message" class="form-message"></div>
             </form>
         </div>
     </div>
@@ -2257,107 +2341,172 @@
         </div>
     </footer>
 
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
     <script>
-    // Theme Toggle
-    const themeToggle = document.querySelector('.theme-toggle');
-    themeToggle.addEventListener('click', () => {
-        document.documentElement.setAttribute('data-theme',
-            document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
-        );
-        updateSkillTexts();
-    });
-
-    function updateSkillTexts() {
-        const theme = document.documentElement.getAttribute('data-theme');
-        document.querySelectorAll('.skill-title').forEach(el => {
-            el.textContent = theme === 'dark' ? el.getAttribute('data-dark') : el.getAttribute('data-light');
+        // Theme Toggle
+        const themeToggle = document.querySelector('.theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.setAttribute('data-theme',
+                document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+            );
+            updateSkillTexts();
         });
-        document.querySelectorAll('.skill-text').forEach(el => {
-            el.textContent = theme === 'dark' ? el.getAttribute('data-dark') : el.getAttribute('data-light');
-        });
-    }
 
-    // Initialize skill texts on page load
-    updateSkillTexts();
-
-    // Lightbulb always animates (no hover needed)
-    const lightbulb = document.querySelector('.bulb i');
-    if (lightbulb) {
-        lightbulb.classList.add('bulb-on');
-    }
-
-    // Form submission handling
-    document.addEventListener('DOMContentLoaded', function() {
-        const contactForm = document.getElementById('contactForm');
-        const formMessage = document.getElementById('form-message');
-        const thankYouContainer = document.getElementById('thank-you-container');
-        const goBackBtn = document.getElementById('go-back-btn');
-        
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const submitBtn = this.querySelector('button[type="submit"]');
-                const originalBtnText = submitBtn.innerHTML;
-                
-                // Show loading state
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                submitBtn.disabled = true;
-                
-                // Submit to Web3Forms
-                const formData = new FormData(this);
-                
-                fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Show thank you container and hide form
-                        thankYouContainer.style.display = 'block';
-                        document.querySelector('.contact-form').style.display = 'none';
-                        
-                        // Reset form
-                        contactForm.reset();
-                    } else {
-                        throw new Error(data.message || 'Form submission failed');
-                    }
-                })
-                .catch(error => {
-                    // Show error message
-                    formMessage.textContent = error.message || 'Failed to send message. Please try again later.';
-                    formMessage.className = 'form-message error';
-                    formMessage.style.display = 'block';
-                    console.error('Error:', error);
-                })
-                .finally(() => {
-                    // Reset button state
-                    submitBtn.innerHTML = originalBtnText;
-                    submitBtn.disabled = false;
-                    
-                    // Hide message after 5 seconds
-                    setTimeout(() => {
-                        formMessage.style.display = 'none';
-                    }, 5000);
-                });
+        function updateSkillTexts() {
+            const theme = document.documentElement.getAttribute('data-theme');
+            document.querySelectorAll('.skill-title').forEach(el => {
+                el.textContent = theme === 'dark' ? el.getAttribute('data-dark') : el.getAttribute('data-light');
+            });
+            document.querySelectorAll('.skill-text').forEach(el => {
+                el.textContent = theme === 'dark' ? el.getAttribute('data-dark') : el.getAttribute('data-light');
             });
         }
-        
-        // Go back button functionality
-        if (goBackBtn) {
-            goBackBtn.addEventListener('click', function(e) {
-                e.preventDefault();
+
+        // Initialize skill texts on page load
+        updateSkillTexts();
+
+        // Lightbulb always animates (no hover needed)
+        const lightbulb = document.querySelector('.bulb i');
+        if (lightbulb) {
+            lightbulb.classList.add('bulb-on');
+        }
+
+        // Confetti Animation
+        function showConfetti() {
+            // Main burst
+            confetti({
+                particleCount: 200,
+                spread: 100,
+                origin: { y: 0.6 }
+            });
+            
+            // Left side burst
+            setTimeout(() => {
+                confetti({
+                    particleCount: 100,
+                    angle: 60,
+                    spread: 80,
+                    origin: { x: 0 }
+                });
+            }, 150);
+            
+            // Right side burst
+            setTimeout(() => {
+                confetti({
+                    particleCount: 100,
+                    angle: 120,
+                    spread: 80,
+                    origin: { x: 1 }
+                });
+            }, 300);
+            
+            // Continuous confetti for 2 seconds
+            const end = Date.now() + 2000;
+            const colors = ['#007BFF', '#1E90FF', '#00bfff', '#87cefa', '#63a4ff'];
+            
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 80,
+                    origin: { x: 0 },
+                    colors: colors
+                });
                 
-                // Show form and hide thank you message
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 80,
+                    origin: { x: 1 },
+                    colors: colors
+                });
+                
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        // Form submission handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            const formMessage = document.getElementById('form-message');
+            const thankYouContainer = document.getElementById('thank-you-container');
+            const goBackBtn = document.getElementById('go-back-btn');
+            
+            // Reset form and show it again
+            function resetForm() {
+                contactForm.reset();
                 thankYouContainer.style.display = 'none';
                 document.querySelector('.contact-form').style.display = 'block';
-                
-                // Force page refresh
-                location.reload(true);
-            });
-        }
-    });       
+                formMessage.style.display = 'none';
+            }
+            
+            // Handle form submission
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalBtnText = submitBtn.innerHTML;
+                    
+                    // Show loading state
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    submitBtn.disabled = true;
+                    
+                    // Submit to Web3Forms
+                    const formData = new FormData(this);
+                    
+                    fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Show thank you container and hide form
+                            thankYouContainer.style.display = 'block';
+                            document.querySelector('.contact-form').style.display = 'none';
+                            
+                            // Reset form
+                            contactForm.reset();
+                            
+                            // Show confetti animation
+                            showConfetti();
+                        } else {
+                            throw new Error(data.message || 'Form submission failed');
+                        }
+                    })
+                    .catch(error => {
+                        // Show error message
+                        formMessage.textContent = error.message || 'Failed to send message. Please try again later.';
+                        formMessage.className = 'form-message error';
+                        formMessage.style.display = 'block';
+                        console.error('Error:', error);
+                    })
+                    .finally(() => {
+                        // Reset button state
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.disabled = false;
+                        
+                        // Hide message after 5 seconds
+                        setTimeout(() => {
+                            formMessage.style.display = 'none';
+                        }, 5000);
+                    });
+                });
+            }
+            
+            // Handle go back button
+            if (goBackBtn) {
+                goBackBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    resetForm();
+                });
+            }
+        });       
 
     </script>
     <style>
