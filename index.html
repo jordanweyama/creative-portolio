@@ -71,6 +71,8 @@
             transition: background-color 0.3s, color 0.3s;
             overflow-x: hidden;
             min-height: 100vh;
+            min-width: 320px; /* Prevents layout from getting narrower than smallest mobile */
+            overflow-x: hidden; /* Prevents horizontal scrolling */
         }
 
         img {
@@ -113,10 +115,10 @@
 
         /* --- Layout Container --- */
         .container {
-            width: 90%;
-            max-width: 1200px;
+            width: 100%; /* Changed from 90% */
+            max-width: 1440px; /* Maximum content width for large screens */
             margin: 0 auto;
-            padding: 3rem 0;
+            padding: 3rem 20px; /* Added horizontal padding */
         }
 
         /* --- Header & Navigation --- */
@@ -1030,7 +1032,26 @@
         }
 
         /* Responsive Design */
+        /* Staged Width Reduction */
+        @media (max-width: 1440px) {
+            .container {
+                max-width: 1200px; /* Optimal content width for desktops */
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 100%; /* Full width below 1200px */
+                padding: 3rem 30px;
+            }
+        }
+        
+        /* Existing responsive code - updated with container */
         @media (max-width: 992px) {
+            .container {
+                padding: 3rem 20px;
+            }
+            
             .hero-grid {
                 grid-template-columns: 1fr;
                 text-align: center;
@@ -1064,6 +1085,10 @@
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding: 3rem 15px;
+            }
+            
             .site-header {
                 flex-direction: column;
                 padding: 1rem;
@@ -1093,12 +1118,43 @@
         }
 
         @media (max-width: 576px) {
+            .container {
+                padding: 3rem 12px;
+            }
+            
             .services-container {
                 grid-template-columns: 1fr;
             }
             
             .section-title {
                 font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .cta-group {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Ultra-wide screen handling (optional) */
+        @media (min-width: 1920px) {
+            body {
+                padding: 0 5%; /* Wastes space on ultra-wide screens */
             }
         }
     </style>
@@ -1131,11 +1187,10 @@
             <div class="cta-group">
                 <button class="btn btn-primary" onclick="window.location.href='#portfolio'">
                     <i class="fas fa-paper-plane"></i> View My Work
-                <div class="cta-group">
+                </button>
                 <button class="btn btn-outline" onclick="window.location.href='#contact'">
                     <i class="fas fa-paper-plane"></i> Contact Me
                 </button>
-
             </div>
         </div>
         <div class="profile-image">
@@ -1221,7 +1276,7 @@
             </div>
         </section>
 
-        <!-- Mission/Vision/Goal Section -->
+        <!-- Mission & Stats Section -->
         <div class="highlight-box">
             <h2 class="section-title">My <span>Mission Vision & Goal</span></h2>
             <div class="content-wrapper">
