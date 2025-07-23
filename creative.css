@@ -1216,133 +1216,157 @@
             color: var(--text-muted-color);
         }
 
-        /* Responsive Design */
-        /* Staged Width Reduction */
-        @media (max-width: 1440px) {
-            .container {
-                max-width: 1200px; /* Optimal content width for desktops */
-            }
-        }
+/* Responsive Design */
+/* Mobile (Extra Small): 320px - 480px */
+@media (max-width: 480px) {
+    .container {
+        padding: 2rem 12px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .cta-group {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .services-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+}
 
-        @media (max-width: 1200px) {
-            .container {
-                max-width: 100%; /* Full width below 1200px */
-                padding: 3rem 30px;
-            }
-        }
-        
-        /* Existing responsive code - updated with container */
-        @media (max-width: 992px) {
-            .container {
-                padding: 3rem 20px;
-            }
-            
-            .hero-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .hero-content {
-                max-width: 100%;
-                margin: 0 auto;
-            }
-            
-            .hero-content h2 {
-                text-align: center;
-            }
-            
-            .cta-group {
-                justify-content: center;
-            }
-            
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .about-content {
-                padding-right: 0;
-            }
+/* Mobile (Small): 481px - 600px */
+@media (min-width: 481px) and (max-width: 600px) {
+    .container {
+        padding: 2.5rem 15px;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .services-container {
+        grid-template-columns: 1fr;
+    }
+}
 
-            .skill-category {
-                flex: 1 1 45%;
-            }
-        }
+/* Tablets (Small): 601px - 768px */
+@media (min-width: 601px) and (max-width: 768px) {
+    .container {
+        padding: 3rem 15px;
+    }
+    
+    .site-header {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    .main-nav {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .cta-group {
+        flex-direction: column;
+    }
+    
+    .content-wrapper {
+        flex-direction: column;
+    }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 3rem 15px;
-            }
-            
-            .site-header {
-                flex-direction: column;
-                padding: 1rem;
-            }
-            
-            .main-nav {
-                margin-top: 1rem;
-                flex-wrap: wrap;
-                gap: 1rem;
-            }
-            
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .cta-group {
-                flex-direction: column;
-            }
-            
-            .content-wrapper {
-                flex-direction: column;
-            }
+    .skill-category {
+        flex: 1 1 100%;
+    }
+    
+    .contact-form, .thank-you-container {
+        padding: 2rem 1.5rem;
+    }
+}
 
-            .skill-category {
-                flex: 1 1 100%;
-            }
-            
-            .contact-form, .thank-you-container {
-                padding: 2rem 1.5rem;
-            }
-        }
+/* Tablets (Large): 769px - 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        max-width: 100%;
+        padding: 3rem 20px;
+    }
+    
+    .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .hero-content {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    .hero-content h2 {
+        text-align: center;
+    }
+    
+    .cta-group {
+        justify-content: center;
+    }
+    
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .about-content {
+        padding-right: 0;
+    }
 
-        @media (max-width: 576px) {
-            .container {
-                padding: 3rem 12px;
-            }
-            
-            .services-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-        }
+    .skill-category {
+        flex: 1 1 45%;
+    }
+}
 
-        @media (max-width: 400px) {
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .hero-content h2 {
-                font-size: 1.5rem;
-            }
-            
-            .cta-group {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            .btn {
-                width: 100%;
-                text-align: center;
-            }
-        }
+/* Laptops and Small Desktops: 1025px - 1280px */
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .container {
+        max-width: 1000px;
+    }
+}
 
-        /* Ultra-wide screen handling (optional) */
-        @media (min-width: 1920px) {
-            body {
-                padding: 0 5%; /* Wastes space on ultra-wide screens */
-            }
-        }
+/* Large Desktops: 1281px - 1440px */
+@media (min-width: 1281px) and (max-width: 1440px) {
+    .container {
+        max-width: 1200px;
+    }
+}
+
+/* Extra-Large Desktops: 1441px and up */
+@media (min-width: 1441px) {
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+}
+
+/* Ultra-wide screen handling (optional) */
+@media (min-width: 1920px) {
+    .container {
+        max-width: 1600px;
+    }
+}
