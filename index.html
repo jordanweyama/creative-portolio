@@ -1200,9 +1200,13 @@
                     </ul>
                 </div>
             </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 Jordan Weyama. All rights reserved.</p>
+
+        <div class="container">
+            <div class="footer-content">
+                            
+                <div class="copyright">
+                    <p>© 2020 Jordan Weyama. | Crafting digital experiences that inspire and engage</p>
+                </div>
             </div>
         </div>
     </footer>
@@ -1211,33 +1215,100 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
     <script>
-        // Theme Toggle
-        const themeToggle = document.querySelector('.theme-toggle');
-        themeToggle.addEventListener('click', () => {
-            document.documentElement.setAttribute('data-theme',
-                document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
-            );
+        // Enhanced Smooth Scrolling with Offset for Fixed Header
+        document.addEventListener('DOMContentLoaded', function() {
+            // Calculate header height (adjust selector if needed)
+            const header = document.querySelector('.site-header');
+            const headerHeight = header ? header.offsetHeight : 0;
+            const scrollOffset = headerHeight + 20; // Add 20px extra space
+            
+            // Smooth scroll function with offset
+            function smoothScrollTo(target) {
+                const targetElement = document.querySelector(target);
+                if (targetElement) {
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = targetPosition - scrollOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            
+            // Handle all anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                // Skip if it's a different protocol or has a special class
+                if (anchor.classList.contains('no-smooth-scroll') || 
+                    anchor.getAttribute('href') === '#') {
+                    return;
+                }
+                
+                anchor.addEventListener('click', function(e) {
+                    // Don't interfere with other click handlers
+                    if (e.defaultPrevented) return;
+                    
+                    e.preventDefault();
+                    const target = this.getAttribute('href');
+                    
+                    // Update URL without page reload
+                    if (history.pushState) {
+                        history.pushState(null, null, target);
+                    } else {
+                        location.hash = target;
+                    }
+                    
+                    smoothScrollTo(target);
+                });
+            });
+            
+            // Handle initial page load with hash in URL
+            if (window.location.hash) {
+                // Small timeout to ensure DOM is fully loaded
+                setTimeout(() => {
+                    smoothScrollTo(window.location.hash);
+                }, 100);
+            }
+            
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                if (header) {
+                    if (window.scrollY > 100) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                }
+            });
+
+            // Theme Toggle
+            const themeToggle = document.querySelector('.theme-toggle');
+            themeToggle.addEventListener('click', () => {
+                document.documentElement.setAttribute('data-theme',
+                    document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+                );
+                updateSkillTexts();
+            });
+
+            function updateSkillTexts() {
+                const theme = document.documentElement.getAttribute('data-theme');
+                document.querySelectorAll('.skill-title').forEach(el => {
+                    el.textContent = theme === 'dark' ? el.getAttribute('data-dark') : el.getAttribute('data-light');
+                });
+                document.querySelectorAll('.skill-text').forEach(el => {
+                    el.textContent = theme === 'dark' ? el.getAttribute('data-dark') : el.getAttribute('data-light');
+                });
+            }
+
+            // Initialize skill texts on page load
             updateSkillTexts();
+
+            // Lightbulb always animates (no hover needed)
+            const lightbulb = document.querySelector('.bulb i');
+            if (lightbulb) {
+                lightbulb.classList.add('bulb-on');
+            }
         });
-
-        function updateSkillTexts() {
-            const theme = document.documentElement.getAttribute('data-theme');
-            document.querySelectorAll('.skill-title').forEach(el => {
-                el.textContent = theme === 'dark' ? el.getAttribute('data-dark') : el.getAttribute('data-light');
-            });
-            document.querySelectorAll('.skill-text').forEach(el => {
-                el.textContent = theme === 'dark' ? el.getAttribute('data-dark') : el.getAttribute('data-light');
-            });
-        }
-
-        // Initialize skill texts on page load
-        updateSkillTexts();
-
-        // Lightbulb always animates (no hover needed)
-        const lightbulb = document.querySelector('.bulb i');
-        if (lightbulb) {
-            lightbulb.classList.add('bulb-on');
-        }
 
         // Confetti Animation
         function showConfetti() {
@@ -1372,8 +1443,7 @@
                     resetForm();
                 });
             }
-        });       
-
+        });
     </script>
     <style>
         /* Add this to your CSS */
@@ -1381,7 +1451,7 @@
             color: var(--bulb-on-color) !important;
             text-shadow: 0 0 10px var(--bulb-glow-color), 0 0 20px var(--bulb-glow-color);
             animation: flicker 1.5s infinite alternate;
-        }
+        }    
     </style>
 </body>
 </html>
